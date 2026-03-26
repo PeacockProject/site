@@ -37,26 +37,65 @@
                 <p class="section-desc">We are actively building kernels, firmware, and UI ports for the following hardware targets. Every test helps push the project forward.</p>
             </div>
             
-            <div class="stack-grid" style="margin-top: 3rem;">
-                <article class="tool-card reveal-jump" style="--stagger: 1">
-                    <h3 class="tool-title" style="color: var(--acc-cyan);">Oppo A16</h3>
-                    <p class="tool-desc">Active target. Includes MTK boot implementations (MinKernel) and deep display/framebuffer fixes.</p>
-                </article>
+            <div class="matrix-disclaimer reveal-jump">
+                Note, these devices are in booting state, Support for said features may not have been implemented or tested yet
+            </div>
 
-                <article class="tool-card reveal-jump" style="--stagger: 2">
-                    <h3 class="tool-title" style="color: var(--acc-cyan);">Samsung Galaxy S4 (jflte)</h3>
-                    <p class="tool-desc">Legacy revival. Focus on fbdev-compat layers, SDDM quirks, and custom firmware delivery.</p>
-                </article>
+            <div class="hardware-matrix reveal-jump">
+                <div class="matrix-header">
+                    <div class="col-device">Device</div>
+                    <div class="col-feature">Kernel</div>
+                    <div class="col-feature">Sensors</div>
+                    <div class="col-feature">Touch</div>
+                    <div class="col-feature">Screen</div>
+                    <div class="col-feature">Power Management</div>
+                    <div class="col-feature">Camera</div>
+                    <div class="col-feature">Offline Charge</div>
+                </div>
 
-                <article class="tool-card reveal-jump" style="--stagger: 3">
-                    <h3 class="tool-title" style="color: var(--acc-cyan);">Xiaomi Mi A2 Lite (daisy)</h3>
-                    <p class="tool-desc">Active target. Includes tailored PRP (Peacock Recovery Project) and remote network debugging (netssh) integrations.</p>
-                </article>
+                <div class="matrix-row">
+                    <div class="col-device">Oppo A16</div>
+                    <div class="col-feature"><span class="status-tag downstream">Downstream</span></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                </div>
 
-                <article class="tool-card reveal-jump" style="--stagger: 4">
-                    <h3 class="tool-title" style="color: var(--acc-cyan);">QEMU (x86_64)</h3>
-                    <p class="tool-desc">Virtual target. Used heavily for host building validation, UI testing, and core OS environment verification without hardware.</p>
-                </article>
+                <div class="matrix-row">
+                    <div class="col-device">Samsung Galaxy S4 (jflte)</div>
+                    <div class="col-feature"><span class="status-tag downstream">Downstream</span></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                </div>
+
+                <div class="matrix-row">
+                    <div class="col-device">Xiaomi Mi A2 Lite (daisy)</div>
+                    <div class="col-feature"><span class="status-tag mainline">Mainline</span></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                </div>
+
+                <div class="matrix-row">
+                    <div class="col-device">QEMU (x86_64)</div>
+                    <div class="col-feature"><span class="status-tag mainline">Mainline</span></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                    <div class="col-feature"></div>
+                </div>
             </div>
         </section>
         

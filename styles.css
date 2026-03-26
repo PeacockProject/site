@@ -545,6 +545,18 @@ body.intro-complete .launch-intro {
     flex: 1;
 }
 
+.status-tag.mainline {
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--acc-cyan);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.status-tag.downstream {
+    background: rgba(255, 0, 230, 0.1);
+    color: var(--acc-magenta);
+    border: 1px solid rgba(255, 0, 230, 0.2);
+}
+
 /* Custom SVG Animations */
 .anim-svg {
     width: 100%;
@@ -905,6 +917,109 @@ body.intro-complete .launch-intro {
     pointer-events: auto;
     transform: scale(1);
     transition-delay: 0.1s; /* Slight delay to let the previous one clear */
+}
+
+/* 
+ * ----------------------------------------------------
+ * DEVICE MATRIX STYLING
+ * ----------------------------------------------------
+ */
+
+.matrix-disclaimer {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem 1.5rem;
+    border-left: 2px solid var(--acc-cyan);
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+    border-radius: 0 4px 4px 0;
+    max-width: 800px;
+    line-height: 1.5;
+}
+
+.hardware-matrix {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: rgba(20, 18, 28, 0.4);
+    border: 1px solid var(--surface-border);
+    border-radius: 8px;
+    overflow-x: auto;
+    /* Custom scrollbar for the table if it overflows */
+    scrollbar-width: thin;
+}
+
+.matrix-header, .matrix-row {
+    display: grid;
+    /* Device column wider, feature columns expanded to 140px for "Downstream" */
+    grid-template-columns: 280px repeat(7, 140px);
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    gap: 2rem;
+    width: max-content;
+    min-width: 100%;
+}
+
+.matrix-header {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--surface-border);
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    line-height: 1.2;
+}
+
+.matrix-row {
+    border-bottom: 1px solid var(--surface-border);
+    transition: background var(--transient);
+}
+
+.matrix-row:last-child {
+    border-bottom: none;
+}
+
+.matrix-row:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.col-device {
+    font-weight: 600;
+    color: var(--acc-cyan);
+    font-size: 1.05rem;
+    text-align: left;
+}
+
+.col-feature {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    min-height: 1.5em;
+}
+
+.status-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-tag.mainline {
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--acc-cyan);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.status-tag.downstream {
+    background: rgba(255, 0, 230, 0.1);
+    color: var(--acc-magenta);
+    border: 1px solid rgba(255, 0, 230, 0.2);
 }
 
 /* 
