@@ -2,7 +2,22 @@ document.addEventListener("DOMContentLoaded", () => {
     initIntro();
     initScrollAnimations();
     initVisualizer();
+    initFooterRoller();
 });
+
+/*
+ * ----------------------------------------------------
+ * FOOTER BRAND ROLLER
+ * ----------------------------------------------------
+ */
+function initFooterRoller() {
+    const roller = document.querySelector('.brand-roller');
+    if (!roller) return;
+
+    setInterval(() => {
+        roller.classList.toggle('is-alt');
+    }, 8000); // Cycle every 8 seconds
+}
 
 /*
  * ----------------------------------------------------
@@ -11,6 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 function initIntro() {
     const introNode = document.querySelector('.launch-intro');
+    const hasSeenIntro = localStorage.getItem('peacock_intro_seen');
+
+    // Skip intro if already seen
+    if (hasSeenIntro && introNode) {
+        introNode.remove();
+        document.body.classList.remove('intro-active');
+        document.body.classList.add('intro-complete');
+        return;
+    }
+
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const introHold = reduceMotion ? 700 : 2100;
     const introExit = reduceMotion ? 0 : 900;
@@ -27,6 +52,8 @@ function initIntro() {
     window.setTimeout(() => {
         document.body.classList.add('intro-complete');
         document.body.classList.remove('intro-active');
+        // Set flag so they don't see it again
+        localStorage.setItem('peacock_intro_seen', 'true');
     }, introHold);
 
     window.setTimeout(() => {

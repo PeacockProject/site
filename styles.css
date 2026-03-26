@@ -852,6 +852,43 @@ body.intro-complete .launch-intro {
 .footer-brand {
     color: var(--text-primary);
     font-weight: 600;
+    height: 1.4em;
+    position: relative;
+    user-select: none;
+    min-width: 160px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.brand-roller {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas: "stack";
+    place-items: center end;
+}
+
+.brand-item {
+    grid-area: stack;
+    /* Extra snappy transition: fast opacity, springy scale */
+    transition: 
+        opacity 0.15s ease-out,
+        transform 0.5s var(--spring);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.65);
+    white-space: nowrap;
+}
+
+/* Active state: Snaps in from scale(0.65) to scale(1) with spring overshoot */
+.brand-roller:not(.is-alt) .brand-item:first-child,
+.brand-roller.is-alt .brand-item:last-child {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    transition-delay: 0.1s; /* Slight delay to let the previous one clear */
 }
 
 /* 
