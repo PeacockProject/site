@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supported Devices // Peacock OS</title>
+    <link rel="icon" href="./logo-mark-dark.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="ambient-background" aria-hidden="true"></div>
+
+    <div class="page-container">
+        <!-- GLOBAL HEADER -->
+        <header class="sys-header reveal-jump">
+            <div class="sys-brand">
+                <img src="./logo-mark-dark.png" class="sys-logo" alt="" />
+                <span class="sys-title">PeacockProject</span>
+            </div>
+            <nav class="sys-nav">
+                <a href="index.html" class="nav-link">Overview</a>
+                <a href="devices.html" class="nav-link active">Supported Devices</a>
+            </nav>
+            <div class="sys-status">
+                <div class="status-indicator"></div>
+                <span class="status-text">Development Branch</span>
+            </div>
+        </header>
+
+        <section class="module" style="margin-top: 4rem;">
+            <div class="module-header reveal-jump">
+                <span class="eyebrow">Hardware Matrix</span>
+                <h1 class="hero-title" style="font-size: 3.5rem;">Supported Targets</h1>
+                <p class="section-desc">We are actively building kernels, firmware, and UI ports for the following hardware targets. Every test helps push the project forward.</p>
+            </div>
+            
+            <div class="stack-grid" style="margin-top: 3rem;">
+                <article class="tool-card reveal-jump" style="--stagger: 1">
+                    <h3 class="tool-title" style="color: var(--acc-cyan);">Oppo A16</h3>
+                    <p class="tool-desc">Active target. Includes MTK boot implementations (MinKernel) and deep display/framebuffer fixes.</p>
+                </article>
+
+                <article class="tool-card reveal-jump" style="--stagger: 2">
+                    <h3 class="tool-title" style="color: var(--acc-cyan);">Samsung Galaxy S4 (jflte)</h3>
+                    <p class="tool-desc">Legacy revival. Focus on fbdev-compat layers, SDDM quirks, and custom firmware delivery.</p>
+                </article>
+
+                <article class="tool-card reveal-jump" style="--stagger: 3">
+                    <h3 class="tool-title" style="color: var(--acc-cyan);">Xiaomi Mi A2 Lite (daisy)</h3>
+                    <p class="tool-desc">Active target. Includes tailored PRP (Peacock Recovery Project) and remote network debugging (netssh) integrations.</p>
+                </article>
+
+                <article class="tool-card reveal-jump" style="--stagger: 4">
+                    <h3 class="tool-title" style="color: var(--acc-cyan);">QEMU (x86_64)</h3>
+                    <p class="tool-desc">Virtual target. Used heavily for host building validation, UI testing, and core OS environment verification without hardware.</p>
+                </article>
+            </div>
+        </section>
+        
+        <footer class="sys-footer reveal-jump" style="margin-top: 6rem;">
+            <div class="footer-line">image builder · boot bridges · system recovery</div>
+            <div class="footer-brand">PeacockProject</div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

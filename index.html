@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peacock // OS</title>
+    <link rel="icon" href="./logo-mark-dark.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="intro-active">
+    <div class="launch-intro" aria-hidden="true">
+        <div class="launch-intro__center">
+            <div class="launch-intro__mask-group">
+                <div class="launch-intro__mask launch-intro__mask--top">
+                    <span class="launch-intro__word">YOURS</span>
+                </div>
+                <div class="launch-intro__divider"></div>
+                <div class="launch-intro__mask launch-intro__mask--bottom">
+                    <span class="launch-intro__word">ONLY</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ambient-background" aria-hidden="true"></div>
+
+    <div class="page-container">
+        <!-- GLOBAL HEADER -->
+        <header class="sys-header reveal-jump">
+            <div class="sys-brand">
+                <img src="./logo-mark-dark.png" class="sys-logo" alt="" />
+                <span class="sys-title">PeacockProject</span>
+            </div>
+            <nav class="sys-nav">
+                <a href="index.html" class="nav-link active">Overview</a>
+                <a href="devices.html" class="nav-link">Supported Devices</a>
+            </nav>
+            <div class="sys-status">
+                <div class="status-indicator"></div>
+                <span class="status-text">Development Branch</span>
+            </div>
+        </header>
+
+        <!-- HERO / SECTION 0 -->
+        <section class="module hero-module" id="surface">
+            <div class="hero-content reveal-jump">
+                <span class="eyebrow">Unshackle Your Device</span>
+                <h1 class="hero-title">Welcome to<br>Peacock OS.</h1>
+                <p class="hero-lead">We're opening the path to put you back in the driver's seat. Because great hardware
+                    deserves an OS that actually listens to you.</p>
+                <div class="hero-actions">
+                    <a href="#stack" class="btn btn-primary">Explore The Stack</a>
+                    <a href="https://github.com/orgs/PeacockProject/" class="btn btn-secondary">Join The Project</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- STACK / SECTION 1 -->
+        <section class="module stack-module" id="stack">
+            <div class="module-header reveal-jump">
+                <h2>The Architecture</h2>
+                <p class="section-desc">Four specialized tools. One unified experience.</p>
+            </div>
+
+            <div class="arch-flow">
+                <!-- LEVEL 1: Builder -->
+                <article class="arch-segment segment-full reveal-jump">
+                    <div class="segment-visual">
+                        <svg class="anim-svg" viewBox="0 0 100 100">
+                            <!-- Animated assembling blocks -->
+                            <rect class="svg-block" x="20" y="20" width="25" height="25" fill="none"
+                                stroke="var(--acc-cyan)" stroke-width="2" />
+                            <rect class="svg-block delay-1" x="55" y="20" width="25" height="25" fill="none"
+                                stroke="var(--acc-cyan)" stroke-width="2" />
+                            <rect class="svg-block delay-2" x="20" y="55" width="25" height="25" fill="none"
+                                stroke="var(--acc-cyan)" stroke-width="2" />
+                            <rect class="svg-block delay-3" x="55" y="55" width="25" height="25" fill="none"
+                                stroke="var(--acc-cyan)" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <div class="segment-content">
+                        <div class="tool-index">Level 01</div>
+                        <h3 class="tool-title">Peacock Builder</h3>
+                        <p class="tool-desc">The core toolkit. It orchestrates the entire system architecture, allowing
+                            you to seamlessly compile and output flashable PeacockOS builds from source.</p>
+                    </div>
+                </article>
+
+                <!-- LEVEL 2: SPLIT (Kernel / Boot) -->
+                <div class="arch-split reveal-jump">
+                    <article class="arch-segment segment-half">
+                        <div class="segment-visual" style="transform: scale(0.9);">
+                            <svg class="anim-svg" viewBox="0 0 512 512">
+                                <path class="draw-path magenta-path"
+                                    d="M416 48v416c0 26.51-21.49 48-48 48H144c-26.51 0-48-21.49-48-48V48c0-26.51 21.49-48 48-48h224c26.51 0 48 21.49 48 48zm96 58v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42V88h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zM30 376h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6z" />
+                            </svg>
+                        </div>
+                        <div class="segment-content">
+                            <div class="tool-index">Level 02 : MTK</div>
+                            <h3 class="tool-title">MinKernel</h3>
+                            <p class="tool-desc">A scratch-built, incredibly lightweight chainloader explicitly tuned
+                                for MediaTek hardware, bridging the gap entirely where traditional bootloaders fall
+                                short. Inspired by the amazing work of lk2nd</p>
+                        </div>
+                    </article>
+
+                    <!-- Boot Bridge node -->
+                    <div class="split-center">
+                        <div class="center-node"></div>
+                        <span class="center-label">BOOT BRIDGE</span>
+                    </div>
+
+                    <article class="arch-segment segment-half">
+                        <div class="segment-visual" style="transform: scale(0.9);">
+                            <svg class="anim-svg" viewBox="0 0 384 512">
+                                <path class="draw-path cyan-path"
+                                    d="M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z" />
+                            </svg>
+                        </div>
+                        <div class="segment-content">
+                            <div class="tool-index">Level 02 : QCOM</div>
+                            <h3 class="tool-title">lk2nd Fork</h3>
+                            <p class="tool-desc">A highly customized boot bridge. It intercepts the standard boot
+                                sequence, injecting the exact modifications needed to successfully launch PeacockOS on
+                                your hardware, with the visual flare of course.</p>
+                        </div>
+                    </article>
+                </div>
+
+
+
+                <!-- LEVEL 3: OS -->
+                <article class="arch-segment segment-full reveal-jump">
+                    <div class="segment-visual">
+                        <svg class="anim-svg" viewBox="0 0 512 512" style="overflow: visible;">
+                            <!-- Expanding Gold Ripples -->
+                            <circle class="svg-ripple-new" cx="256" cy="256" r="256" fill="none"
+                                stroke="var(--acc-gold)" vector-effect="non-scaling-stroke" />
+                            <circle class="svg-ripple-new delay-2" cx="256" cy="256" r="256" fill="none"
+                                stroke="var(--acc-gold)" vector-effect="non-scaling-stroke" />
+
+                            <!-- OS Stack Core (Peacock Feather) -->
+                            <g transform="translate(128, 128) scale(0.5)">
+                                <path class="svg-os-core" fill="var(--text-primary)"
+                                    d="M512 0C460.22 3.56 96.44 38.2 71.01 287.61c-3.09 26.66-4.84 53.44-5.99 80.24l178.87-178.69c6.25-6.25 16.4-6.25 22.65 0s6.25 16.38 0 22.63L7.04 471.03c-9.38 9.37-9.38 24.57 0 33.94 9.38 9.37 24.59 9.37 33.98 0l57.13-57.07c42.09-.14 84.15-2.53 125.96-7.36 53.48-5.44 97.02-26.47 132.58-56.54H255.74l146.79-48.88c11.25-14.89 21.37-30.71 30.45-47.12h-81.14l106.54-53.21C500.29 132.86 510.19 26.26 512 0z" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="segment-content">
+                        <div class="tool-index">Level 03</div>
+                        <h3 class="tool-title" style="font-size: 2.2rem; color: var(--text-primary);">PeacockOS</h3>
+                        <p class="tool-desc">The operating system itself. A completely decentralized, unleashed
+                            environment designed from the ground up to give you absolute control over your device's
+                            capabilities. Elegant, fast, and engineered for those who demand more than factory limits.
+                        </p>
+                    </div>
+                </article>
+
+                <div class="flow-connector reveal-jump">
+                    <div class="flow-line"></div>
+                </div>
+
+                <!-- LEVEL 4: PRP -->
+                <article class="arch-segment segment-full reveal-jump">
+                    <div class="segment-visual">
+                        <svg class="anim-svg prp-rescue-svg" viewBox="0 0 1000 1000" style="overflow: visible;">
+                            <!-- Hand needing help (bottom) - hand-paper facing up -->
+                            <g class="hand-bottom" fill="var(--acc-magenta)">
+                                <g transform="translate(150, 250) scale(0.85)">
+                                    <path
+                                        d="M408.781 128.007C386.356 127.578 368 146.36 368 168.79V256h-8V79.79c0-22.43-18.356-41.212-40.781-40.783C297.488 39.423 280 57.169 280 79v177h-8V40.79C272 18.36 253.644-.422 231.219.007 209.488.423 192 18.169 192 40v216h-8V80.79c0-22.43-18.356-41.212-40.781-40.783C121.488 40.423 104 58.169 104 80v235.992l-31.648-43.519c-12.993-17.866-38.009-21.817-55.877-8.823-17.865 12.994-21.815 38.01-8.822 55.877l125.601 172.705A48 48 0 0 0 172.073 512h197.59c22.274 0 41.622-15.324 46.724-37.006l26.508-112.66a192.011 192.011 0 0 0 5.104-43.975V168c.001-21.831-17.487-39.577-39.218-39.993z" />
+                                </g>
+                            </g>
+
+                            <!-- Hand rescuing (top) - hand-paper -->
+                            <g class="hand-top" fill="var(--acc-cyan)">
+                                <!-- Rotated 180deg down -->
+                                <g transform="translate(250, 150) scale(0.85) rotate(180 224 256)">
+                                    <path
+                                        d="M408.781 128.007C386.356 127.578 368 146.36 368 168.79V256h-8V79.79c0-22.43-18.356-41.212-40.781-40.783C297.488 39.423 280 57.169 280 79v177h-8V40.79C272 18.36 253.644-.422 231.219.007 209.488.423 192 18.169 192 40v216h-8V80.79c0-22.43-18.356-41.212-40.781-40.783C121.488 40.423 104 58.169 104 80v235.992l-31.648-43.519c-12.993-17.866-38.009-21.817-55.877-8.823-17.865 12.994-21.815 38.01-8.822 55.877l125.601 172.705A48 48 0 0 0 172.073 512h197.59c22.274 0 41.622-15.324 46.724-37.006l26.508-112.66a192.011 192.011 0 0 0 5.104-43.975V168c.001-21.831-17.487-39.577-39.218-39.993z" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="segment-content">
+                        <div class="tool-index">Level 04</div>
+                        <h3 class="tool-title">Peacock Recovery (PRP)</h3>
+                        <p class="tool-desc">Engineered from the ground up as a native alternative to TWRP, designed
+                            exclusively to manage, rescue, and repair your PeacockOS environment.</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- SIGNALS / SECTION 2 -->
+        <section class="module signals-module reveal-jump" id="signals">
+            <div class="signal-container" id="signal-reactor">
+                <div class="signal-copy">
+                    <h2 class="signal-title">The signal is already out there.</h2>
+                    <p>Our host builders, device recoveries, and lower boot paths are producing real, tangible output
+                        right now. Ready to experience bleeding edge?</p>
+                </div>
+
+                <!-- Fluid/Jumpy FFT Visualizer -->
+                <div class="visualizer-wrapper">
+                    <div class="visualizer" id="audio-vis"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="sys-footer reveal-jump">
+            <div class="footer-line">Yours Only</div>
+            <div class="footer-brand">PeacockProject</div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
