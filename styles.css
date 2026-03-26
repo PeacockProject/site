@@ -532,6 +532,11 @@ body.intro-complete .launch-intro {
     align-items: center;
 }
 
+.builder-segment .segment-visual {
+    width: 180px;
+    height: 180px;
+}
+
 .segment-half .segment-visual {
     margin: 0 auto;
 }
@@ -547,38 +552,49 @@ body.intro-complete .launch-intro {
     overflow: visible;
 }
 
-/* Level 1: Builder Blocks */
-.svg-block {
-    animation: assembleBlocks 2s infinite ease-in-out alternate;
+/* Level 1: Builder Assembler */
+.svg-builder-core {
+    transform-origin: center;
+    animation: coreEnergy 2s infinite ease-in-out;
 }
 
-.svg-block.delay-1 {
-    animation-delay: 0.2s;
-}
-
-.svg-block.delay-2 {
-    animation-delay: 0.4s;
-}
-
-.svg-block.delay-3 {
-    animation-delay: 0.6s;
-}
-
-@keyframes assembleBlocks {
-    0% {
-        transform: scale(0.8) translate(-10px, -10px);
-        opacity: 0;
+@keyframes coreEnergy {
+    0%, 100% {
+        opacity: 0.8;
+        filter: drop-shadow(0 0 2px var(--acc-cyan));
     }
-
     50% {
-        transform: scale(1) translate(0, 0);
         opacity: 1;
+        filter: drop-shadow(0 0 10px var(--acc-cyan));
     }
+}
 
-    100% {
-        transform: scale(1) translate(0, 0);
-        opacity: 1;
-    }
+.svg-packet {
+    opacity: 0;
+    animation: packetStream 1.5s infinite linear;
+}
+
+.p-top { animation-delay: 0s; --tx: 0; --ty: 30px; }
+.p-left { animation-delay: 0.5s; --tx: 30px; --ty: 0; }
+.p-right { animation-delay: 1s; --tx: -30px; --ty: 0; }
+
+@keyframes packetStream {
+    0% { transform: translate(0, 0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+}
+
+.svg-build-output {
+    transform-origin: center;
+    animation: outputBuild 3s infinite ease-in-out;
+}
+
+@keyframes outputBuild {
+    0% { transform: translateY(0) scale(0.8); opacity: 0; }
+    40% { transform: translateY(0) scale(1.1); opacity: 1; }
+    60% { transform: translateY(20px) scale(1.2); opacity: 0.5; }
+    100% { transform: translateY(40px) scale(1.4); opacity: 0; }
 }
 
 /* Level 2: Blueprint Animations */
