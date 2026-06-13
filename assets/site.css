@@ -1,0 +1,260 @@
+/* ===== PeacockProject — site (builder design language: light academia) ===== */
+:root{
+  --bg:#F3F3F1; --panel:#FAFAF8; --panel2:#EFEFEC;
+  --ink:#201F24; --ink2:#3C3A42; --soft:#7C7782; --faint:#A6A2AC;
+  --line:rgba(32,31,36,.12); --line2:rgba(32,31,36,.20);
+  --irid:linear-gradient(120deg,#23B7AE,#2E86C8 50%,#6C63D8);
+  --blue:#2E86C8; --teal:#1FA39A; --violet:#6C63D8; --green:#1F8A5B;
+  --serif:'Instrument Serif',serif; --sans:'Hanken Grotesk',sans-serif; --mono:'Space Mono',monospace;
+  --r:11px;
+  --maxw:1180px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;}
+html,body{margin:0;background:var(--bg);}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img,svg{display:block;}
+
+/* faint iridescent ambient wash behind everything */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60vw 60vw at 82% -8%, rgba(108,99,216,.10), transparent 60%),
+    radial-gradient(50vw 50vw at 6% 18%, rgba(35,183,174,.09), transparent 60%),
+    radial-gradient(60vw 50vw at 100% 105%, rgba(46,134,200,.08), transparent 60%);}
+.page{position:relative;z-index:1;}
+
+/* ---------- header ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:40;height:60px;display:flex;align-items:center;
+  gap:14px;padding:0 clamp(18px,4vw,48px);
+  background:rgba(243,243,241,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);transition:background .3s,border-color .3s;}
+.hdr .mk{width:26px;height:26px;flex:0 0 26px;}
+.hdr .mk svg{width:100%;height:100%;overflow:visible;}
+.hdr .mk svg path{fill:var(--ink)!important;}
+.hdr .word{font-family:var(--serif);font-size:21px;line-height:1;letter-spacing:.005em;}
+.hdr .word .os{font-family:var(--mono);font-size:12px;color:var(--faint);margin-left:7px;letter-spacing:.04em;}
+.hdr nav{margin-left:auto;display:flex;align-items:center;gap:7px;}
+.hdr nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);
+  padding:9px 12px;border-radius:8px;transition:color .15s,background .15s;}
+.hdr nav a:hover{color:var(--ink);background:rgba(32,31,36,.05);}
+
+/* ---------- generic atoms ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,48px);}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--soft);}
+.btn{display:inline-flex;align-items:center;gap:11px;border-radius:var(--r);padding:13px 19px;border:1px solid transparent;
+  cursor:pointer;font-family:var(--sans);font-size:14.5px;font-weight:600;line-height:1.05;
+  transition:transform .12s,box-shadow .15s,background .15s,color .15s;}
+.btn .ar{font-size:15px;opacity:.7;transition:transform .2s var(--ease);}
+.btn:hover .ar{transform:translateX(3px);}
+.btn.primary{background:var(--ink);color:var(--bg);box-shadow:0 8px 22px -12px rgba(32,31,36,.6);}
+.btn.primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px -12px rgba(32,31,36,.6);}
+.btn.ghost{background:rgba(255,255,255,.55);border-color:var(--line2);color:var(--ink);}
+.btn.ghost:hover{background:#fff;border-color:var(--soft);}
+.btn.grad{background:var(--irid);color:#fff;box-shadow:0 10px 26px -12px rgba(46,134,200,.7);}
+.btn.grad:hover{transform:translateY(-1px);}
+.btn:focus-visible{outline:2px solid rgba(46,134,200,.65);outline-offset:2px;}
+
+/* scroll-reveal primitive — the original "reveal-jump": rise + scale with a
+ * spring overshoot, and it RE-TRIGGERS every time the element re-enters view
+ * (handled in site.js), which is what keeps the page feeling alive. */
+.reveal{opacity:0;transform:translateY(60px) scale(.95);
+  transition:opacity .8s ease-out, transform .8s var(--spring);}
+.reveal.in{opacity:1;transform:translateY(0) scale(1);}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;}
+.hero .pkhero{position:absolute;right:clamp(-120px,-6vw,-40px);top:50%;transform:translateY(-50%);
+  width:min(680px,52vw);aspect-ratio:660/748;z-index:0;pointer-events:none;opacity:.9;
+  filter:saturate(.97) drop-shadow(0 30px 60px rgba(46,134,200,.16));}
+.hero .pkhero svg{width:100%;height:100%;overflow:visible;}
+.hero .pkhero svg path{fill:url(#irid)!important;}
+.hero-content{position:relative;z-index:2;max-width:none;}
+.hero .eyebrow{margin-bottom:22px;}
+.hero-title{font-family:var(--serif);font-size:clamp(54px,11vw,150px);line-height:.84;letter-spacing:-.01em;margin:0;}
+.hero-title .grad{display:block;font-style:italic;
+  background:var(--irid);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-lead{margin:28px 0 0;max-width:40ch;font-size:clamp(15.5px,1.5vw,18px);line-height:1.55;color:var(--ink2);}
+.hero-actions{margin-top:34px;display:flex;gap:13px;flex-wrap:wrap;}
+.scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
+  font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);
+  display:flex;flex-direction:column;align-items:center;gap:8px;}
+.scroll-cue .bar{width:1px;height:34px;background:linear-gradient(var(--line2),transparent);animation:cue 2.2s var(--ease) infinite;}
+@keyframes cue{0%,100%{transform:scaleY(.5);opacity:.4;transform-origin:top}50%{transform:scaleY(1);opacity:1;transform-origin:top}}
+
+/* ---------- section frame ---------- */
+.module{position:relative;padding:clamp(80px,12vh,140px) 0;}
+.module-header{margin-bottom:clamp(40px,7vh,72px);}
+.module-header h2{font-family:var(--serif);font-size:clamp(34px,5.5vw,64px);line-height:.98;letter-spacing:-.005em;margin:10px 0 0;}
+.section-desc{margin:14px 0 0;font-size:16px;color:var(--soft);max-width:50ch;}
+
+/* ---------- architecture flow ---------- */
+.arch-flow{display:flex;flex-direction:column;gap:26px;}
+.arch-segment{position:relative;display:grid;grid-template-columns:200px 1fr;gap:34px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:34px 38px;
+  box-shadow:0 1px 2px rgba(32,31,36,.05);transition:border-color .25s,box-shadow .25s,transform .25s;}
+.arch-segment:hover{border-color:var(--line2);box-shadow:0 16px 40px -22px rgba(32,31,36,.28);transform:translateY(-2px);}
+.arch-segment::before{content:"";position:absolute;left:0;top:24px;bottom:24px;width:3px;border-radius:0 3px 3px 0;
+  background:var(--irid);opacity:.85;}
+.segment-visual{width:148px;height:148px;display:grid;place-items:center;margin:0 auto;}
+.segment-visual svg{width:100%;height:100%;overflow:visible;}
+.tool-index{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);}
+.tool-title{font-family:var(--serif);font-size:clamp(26px,3.4vw,38px);line-height:1.02;margin:8px 0 12px;letter-spacing:-.005em;}
+.tool-desc{font-size:15.5px;line-height:1.6;color:var(--ink2);max-width:62ch;}
+
+/* split row (two halves + boot bridge) — the original ran a drip line straight
+ * down through the boot-bridge node, tying the two halves to the segments
+ * above and below. */
+.arch-split{position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:stretch;}
+.arch-split::before{content:"";position:absolute;left:50%;top:-26px;bottom:-26px;width:3px;border-radius:2px;
+  background:rgba(46,134,200,.30);box-shadow:0 0 6px rgba(46,134,200,.30);
+  transform:translateX(-50%);z-index:0;pointer-events:none;}
+.arch-split::after{content:"";position:absolute;left:50%;width:5px;height:42px;border-radius:3px;
+  background:var(--blue);filter:blur(1.5px);transform:translateX(-50%);z-index:0;pointer-events:none;
+  animation:dripSplit 1.1s linear infinite;}
+/* comet stays within the line (which already spans exactly card-edge to
+ * card-edge) and fades in past the top / out before the bottom — so it never
+ * overshoots onto a card. */
+@keyframes dripSplit{0%{top:2px;opacity:0}28%{opacity:1}78%{opacity:1}100%{top:calc(100% - 44px);opacity:0}}
+.arch-split .arch-segment{grid-template-columns:120px 1fr;gap:24px;padding:28px 30px;}
+.arch-split .segment-visual{width:104px;height:104px;}
+.arch-split .tool-title{font-size:clamp(22px,2.6vw,30px);}
+.split-center{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0 4px;}
+.center-node{width:14px;height:14px;border-radius:50%;background:var(--irid);
+  box-shadow:0 0 0 6px rgba(46,134,200,.12),0 0 0 12px rgba(46,134,200,.05);animation:pulse 2.6s var(--ease) infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 6px rgba(46,134,200,.12),0 0 0 12px rgba(46,134,200,.05)}50%{box-shadow:0 0 0 9px rgba(46,134,200,.16),0 0 0 18px rgba(46,134,200,.06)}}
+.center-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);writing-mode:vertical-rl;}
+.flow-connector{position:relative;height:56px;}
+/* line extends -26px past the connector at each end (= the arch-flow gap), so it
+ * actually reaches and connects the PeacockOS and PRP cards; uniform thickness
+ * top-to-bottom (no fade), a touch thicker than the boot-bridge hairline. */
+.flow-line{position:absolute;left:50%;top:-26px;bottom:-26px;width:3px;transform:translateX(-50%);
+  border-radius:2px;background:rgba(46,134,200,.30);box-shadow:0 0 6px rgba(46,134,200,.30);}
+.flow-line::after{content:"";position:absolute;left:50%;width:5px;height:42px;border-radius:3px;transform:translateX(-50%);
+  background:var(--blue);filter:blur(1.5px);animation:dripSplit 1.1s linear infinite;}
+/* node on the drip line — same look as the boot-bridge center-node */
+.flow-node{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;
+  width:14px;height:14px;border-radius:50%;background:var(--irid);
+  box-shadow:0 0 0 6px rgba(46,134,200,.12),0 0 0 12px rgba(46,134,200,.05);animation:pulse 2.6s var(--ease) infinite;}
+
+/* ---- architecture SVG animations — ported verbatim from the original site
+ * (coreEnergy / packetStream / outputBuild / drawCyan|Magenta / rippleHeartbeat
+ * / smoothPulseOS / beckonHelp / swoopRescue). Run continuously, exactly as
+ * before; only the colors are remapped to the light palette. ---- */
+.svg-builder-core{stroke:var(--teal);transform-origin:50%;animation:coreEnergy 2s ease-in-out infinite;}
+.svg-builder-core-inner{fill:var(--teal);}
+@keyframes coreEnergy{0%,100%{opacity:.8;filter:drop-shadow(0 0 2px var(--teal))}50%{opacity:1;filter:drop-shadow(0 0 10px var(--teal))}}
+
+.svg-packet{opacity:0;animation:packetStream 1.5s linear infinite;}
+.p-top{--tx:0;--ty:30px;animation-delay:0s;}
+.p-left{--tx:30px;--ty:0;animation-delay:.5s;}
+.p-right{--tx:-30px;--ty:0;animation-delay:1s;}
+@keyframes packetStream{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty))}}
+
+.svg-build-output{stroke:var(--violet);transform-origin:50%;animation:outputBuild 3s ease-in-out infinite;}
+@keyframes outputBuild{0%{opacity:0;transform:translateY(0) scale(.8)}40%{opacity:1;transform:translateY(0) scale(1.1)}60%{opacity:.5;transform:translateY(20px) scale(1.2)}100%{opacity:0;transform:translateY(40px) scale(1.4)}}
+
+.draw-path{fill:transparent;stroke-width:14px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4000;stroke-dashoffset:4000;}
+.cyan-path{stroke:var(--blue);animation:drawCyan 4s cubic-bezier(.4,0,.2,1) .5s infinite alternate;}
+.magenta-path{stroke:var(--violet);animation:drawMagenta 4s cubic-bezier(.4,0,.2,1) infinite alternate;}
+@keyframes drawCyan{0%{stroke-dashoffset:4000;fill:transparent}60%,70%{stroke-dashoffset:0;fill:transparent}100%{stroke-dashoffset:0;fill:rgba(46,134,200,.5)}}
+@keyframes drawMagenta{0%{stroke-dashoffset:4000;fill:transparent}60%,70%{stroke-dashoffset:0;fill:transparent}100%{stroke-dashoffset:0;fill:rgba(108,99,216,.5)}}
+
+.svg-os-core{fill:var(--ink);transform-origin:50%;animation:smoothPulseOS 3s ease-in-out infinite alternate;}
+@keyframes smoothPulseOS{0%{opacity:.8;transform:scale(.95)}100%{opacity:1;transform:scale(1.05)}}
+
+.svg-ripple-new{stroke:var(--teal);transform-origin:50%;animation:rippleHeartbeat 4s cubic-bezier(.1,.9,.2,1) infinite;}
+.svg-ripple-new.delay-2{animation-delay:2s;}
+@keyframes rippleHeartbeat{0%{opacity:0;stroke-width:2px;transform:scale(.4)}5%{opacity:1;stroke-width:18px;transform:scale(.5)}10%{opacity:.2;stroke-width:4px;transform:scale(1)}15%{opacity:.8;stroke-width:14px;transform:scale(1.15)}100%{opacity:0;stroke-width:1px;transform:scale(12)}}
+
+.hand-top path{fill:var(--blue);}
+.hand-bottom path{fill:var(--violet);}
+.hand-bottom{transform-origin:50%;animation:beckonHelp 5s cubic-bezier(.4,0,.2,1) infinite;}
+.hand-top{transform-origin:50%;animation:swoopRescue 5s cubic-bezier(.4,0,.2,1) infinite;}
+@keyframes beckonHelp{0%{opacity:0;transform:translateY(400px)}40%,45%{opacity:1;transform:translateY(0)}65%,85%{opacity:1;transform:translateY(-200px)}100%{opacity:0;transform:translateY(-200px)}}
+@keyframes swoopRescue{0%,25%{opacity:0;transform:translateY(-400px)}45%{opacity:1;transform:translateY(-80px)}65%,85%{opacity:1;transform:translateY(-280px)}100%{opacity:0;transform:translateY(-280px)}}
+
+/* ---------- signals ---------- */
+.signals-module .signal-container{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:clamp(34px,5vw,60px);
+  box-shadow:0 1px 2px rgba(32,31,36,.05);}
+.signal-title{font-family:var(--serif);font-size:clamp(30px,4vw,48px);line-height:1.0;margin:0 0 16px;letter-spacing:-.005em;}
+.signal-copy p{font-size:16px;line-height:1.6;color:var(--ink2);max-width:46ch;}
+.signal-copy .btn{margin-top:26px;}
+.visualizer{display:flex;align-items:flex-end;gap:4px;width:100%;height:220px;
+  border-radius:14px;background:var(--bg);border:1px solid var(--line);padding:18px;overflow:hidden;}
+.vis-bar{flex:1;min-height:5px;border-radius:7px;will-change:height;
+  background:linear-gradient(to top,#23B7AE,#2E86C8 55%,#6C63D8);}
+@media (max-width:880px){.visualizer{height:150px;gap:3px;padding:14px;}}
+
+/* ---------- footer ---------- */
+.footer{position:relative;padding:clamp(60px,9vh,110px) 0 46px;border-top:1px solid var(--line);background:var(--panel);}
+/* brand roller — the original stacked slam-in / kick-out / flicker, big serif.
+ * Two items share one grid cell; data-state/data-direction drive the springy
+ * 3D transitions (ported verbatim, light palette). */
+.footer .roller{position:relative;display:grid;grid-template-areas:"stack";place-items:center start;
+  perspective:900px;isolation:isolate;height:1.2em;
+  font-family:var(--serif);font-size:clamp(48px,12vw,150px);letter-spacing:-.01em;line-height:1;}
+.footer .brand-item{grid-area:stack;opacity:0;pointer-events:none;transform-origin:0;white-space:nowrap;
+  will-change:opacity,transform,filter;}
+.footer .brand-item--alt{font-style:italic;letter-spacing:.01em;
+  background:var(--irid);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.footer .roller[data-state=project] .brand-item--project{opacity:1;pointer-events:auto;animation:footerBrandSlamIn .44s cubic-bezier(.18,1.2,.32,1) both;}
+.footer .roller[data-state=project][data-direction=to-project] .brand-item--project{animation:footerBrandReformIn .52s cubic-bezier(.2,.9,.25,1.08) both;}
+.footer .roller[data-state=project] .brand-item--alt{animation:footerBrandGhostOut .18s ease-out both;}
+.footer .roller[data-state=project][data-direction=to-project] .brand-item--alt{animation:footerAltCollapseOut .26s cubic-bezier(.55,0,.75,.2) both;}
+.footer .roller[data-state=alt] .brand-item--project{animation:footerBrandKickOut .26s cubic-bezier(.55,0,.75,.2) both;}
+.footer .roller[data-state=alt] .brand-item--alt{opacity:1;pointer-events:auto;animation:footerBrandSlamIn .42s cubic-bezier(.18,1.2,.32,1) both, footerAltFlicker .26s linear;}
+@keyframes footerBrandSlamIn{0%{opacity:0;filter:blur(8px);transform:translate(20px,18px) scale(.82) rotateX(-24deg) skew(-12deg)}48%{opacity:1;filter:blur(0);transform:translate(-6px,-2px) scale(1.08) rotateX(0) skew(0)}70%{transform:translate(2px,1px) scale(.97)}100%{opacity:1;filter:blur(0);transform:translate(0,0) scale(1)}}
+@keyframes footerBrandReformIn{0%{opacity:0;letter-spacing:.18em;filter:blur(10px);transform:translate(-28px,8px) scale(.92) skew(18deg)}38%{opacity:.9;letter-spacing:.08em;filter:blur(1px);transform:translate(6px,-1px) scale(1.03) skew(-6deg)}62%{opacity:1;letter-spacing:.01em;filter:blur(0);transform:translate(-2px,0) scale(.995)}100%{opacity:1;letter-spacing:0;filter:blur(0);transform:translate(0,0) scale(1)}}
+@keyframes footerBrandGhostOut{0%,100%{opacity:0;filter:blur(6px);transform:translate(-10px,6px) scale(.88)}}
+@keyframes footerAltCollapseOut{0%{opacity:1;filter:blur(0);transform:translate(0,0) scale(1)}45%{opacity:.65;transform:translate(3px,1px) scale(.94) skew(10deg)}100%{opacity:0;filter:blur(8px);transform:translate(14px,7px) scale(.82) skew(20deg)}}
+@keyframes footerBrandKickOut{0%{opacity:1;filter:blur(0);transform:translate(0,0) scale(1)}100%{opacity:0;filter:blur(6px);transform:translate(18px,-12px) scale(.9) skew(-16deg)}}
+@keyframes footerAltFlicker{0%{opacity:0;filter:blur(3px)}12%{opacity:.95;filter:blur(0)}22%{opacity:.2;transform:translate(2px,0) scale(1.01)}34%{opacity:1;transform:translate(-1px,0) scale(1)}48%{opacity:.35}62%{opacity:1}100%{opacity:1;filter:blur(0)}}
+.footer .frow{margin-top:38px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--soft);}
+.footer .frow a{color:var(--ink2);border-bottom:1px solid var(--line2);padding-bottom:1px;transition:color .15s,border-color .15s;}
+.footer .frow a:hover{color:var(--blue);border-color:var(--blue);}
+.footer .frow .sp{flex:1;}
+.footer .frow .pd{width:11px;height:11px;border-radius:2px;background:var(--irid);}
+
+/* ---------- intro reveal — the original "Yours / Only" split-mask ---------- */
+.intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;
+  background:rgba(243,243,241,.6);backdrop-filter:blur(30px) saturate(1.2);
+  -webkit-backdrop-filter:blur(30px) saturate(1.2);transition:opacity 1s var(--ease);}
+.intro.done{opacity:0;visibility:hidden;pointer-events:none;}
+.intro .igroup{display:flex;flex-direction:column;align-items:center;position:relative;}
+.intro .imask{line-height:1.1;overflow:hidden;}
+.intro .imask--top{padding-bottom:2px;}
+.intro .imask--bottom{padding-top:2px;}
+.intro .iword{display:block;font-family:var(--serif);font-style:italic;line-height:1;letter-spacing:.01em;
+  font-size:clamp(3.4rem,13vw,8rem);
+  background:var(--irid);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.intro .imask--top .iword{transform:translateY(100%);animation:iwordTop .8s cubic-bezier(.22,1,.36,1) .4s forwards;}
+.intro .imask--bottom .iword{transform:translateY(-100%);animation:iwordBot .8s cubic-bezier(.22,1,.36,1) .4s forwards;}
+.intro .idiv{height:1px;width:min(120%,18rem);margin:0 -10%;background:var(--blue);transform:scaleX(0);transform-origin:50%;
+  box-shadow:0 0 12px rgba(46,134,200,.6);position:relative;z-index:2;
+  animation:idivIn .8s cubic-bezier(.22,1,.36,1) forwards, idivOut .6s 1.5s forwards;}
+@keyframes iwordTop{to{transform:translateY(0)}}
+@keyframes iwordBot{to{transform:translateY(0)}}
+@keyframes idivIn{0%{opacity:0;transform:scaleX(0)}30%{opacity:1}to{opacity:1;transform:scaleX(1)}}
+@keyframes idivOut{to{opacity:0;transform:scaleX(0)}}
+
+/* ---------- responsive ---------- */
+@media (max-width:880px){
+  .hdr nav a:not(.btn){display:none;}
+  .hero .pkhero{opacity:.32;right:-22vw;}
+  .arch-segment{grid-template-columns:1fr;gap:18px;text-align:left;padding:28px 24px;}
+  .segment-visual{margin:0;width:96px;height:96px;}
+  .arch-split{grid-template-columns:1fr;}
+  .split-center{flex-direction:row;padding:6px 0;}
+  .center-label{writing-mode:horizontal-tb;}
+  .signals-module .signal-container{grid-template-columns:1fr;gap:30px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;}
+  .reveal{opacity:1;transform:none;}
+  .intro{display:none;}
+}
