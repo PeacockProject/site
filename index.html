@@ -3,209 +3,299 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Peacock // OS</title>
-<meta name="description" content="PeacockProject — unshackle your device. A unified stack: Builder, MinKernel, lk2nd fork, PeacockOS, and PRP recovery." />
+<title>Peacock // OS — redesign (peacock-maximal)</title>
 <link rel="icon" href="/logo-mark-dark.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css" />
+<style>
+  :root{
+    --bg:#070b10;            /* deep jewel near-black */
+    --bg2:#0b1219;
+    --ink:#F4F1E8;           /* warm cream */
+    --ink2:#C9C7CE;
+    --soft:#8C93A0;
+    --faint:#5C636F;
+    --line:rgba(255,255,255,.10);
+    --line2:rgba(255,255,255,.18);
+    --teal:#2BD4C4; --blue:#3BA0F0; --violet:#8E7BF0;
+    --irid:linear-gradient(120deg,#2BD4C4,#3BA0F0 48%,#8E7BF0);
+    --serif:'Instrument Serif',serif; --sans:'Hanken Grotesk',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);}
+  body{font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  svg{display:block;}
+
+  /* lush jewel-tone ambient + faint feather-eye field */
+  .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(70vw 70vw at 86% -6%, rgba(142,123,240,.20), transparent 58%),
+      radial-gradient(60vw 60vw at 2% 22%, rgba(43,212,196,.16), transparent 58%),
+      radial-gradient(80vw 60vw at 60% 110%, rgba(59,160,240,.14), transparent 60%),
+      var(--bg);}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+    background-image:radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);background-size:3px 3px;}
+  .page{position:relative;z-index:2;}
+
+  /* ---- top bar (new IA: Wiki / Community / GitHub) ---- */
+  .hdr{position:fixed;top:0;left:0;right:0;z-index:40;height:64px;display:flex;align-items:center;gap:14px;
+    padding:0 clamp(18px,4vw,52px);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    background:linear-gradient(var(--bg),rgba(7,11,16,.4));border-bottom:1px solid var(--line);}
+  .hdr .mk{width:30px;height:34px;flex:0 0 30px;}
+  .hdr .mk svg{width:100%;height:100%;overflow:visible;}
+  .hdr .mk svg path{fill:url(#irid)!important;}
+  .hdr .word{font-family:var(--serif);font-size:23px;line-height:1;}
+  .hdr .word .os{font-family:var(--mono);font-size:12px;color:var(--faint);margin-left:7px;}
+  .hdr nav{margin-left:auto;display:flex;align-items:center;gap:4px;}
+  .hdr nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);
+    padding:10px 13px;border-radius:9px;transition:color .15s,background .15s;}
+  .hdr nav a:hover{color:var(--ink);background:rgba(255,255,255,.06);}
+  .hdr nav a.soon{position:relative;}
+  .hdr nav a.soon::after{content:"soon";position:absolute;top:-2px;right:-2px;font-size:7px;letter-spacing:.08em;
+    color:#0a0a0a;background:var(--teal);border-radius:4px;padding:1px 3px;}
+  .hdr nav .cta{color:var(--ink);border:1px solid var(--line2);}
+
+  /* ---- hero ---- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:0 clamp(18px,4vw,52px);overflow:hidden;}
+  /* fade the peacock into the canvas at the bottom so it dissolves, not slices */
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:2;pointer-events:none;
+    background:linear-gradient(to bottom, transparent, var(--bg) 92%);}
+  .hero-peacock{position:absolute;right:clamp(-180px,-7vw,-60px);top:clamp(78px,11vh,150px);
+    width:min(1020px,72vw);aspect-ratio:660/748;z-index:1;pointer-events:none;
+    filter:drop-shadow(0 0 60px rgba(59,160,240,.35)) drop-shadow(0 30px 80px rgba(142,123,240,.25));}
+  .hero-peacock svg{width:100%;height:100%;overflow:visible;}
+  .hero-peacock svg path{fill:url(#irid)!important;}
+  .hero-peacock.shimmer{animation:floaty 9s ease-in-out infinite;}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+  .hero-wrap{position:relative;z-index:3;max-width:1240px;margin:0 auto;width:100%;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink2);background:rgba(255,255,255,.05);border:1px solid var(--line);
+    padding:7px 14px;border-radius:999px;}
+  .eyebrow .pip{width:7px;height:7px;border-radius:50%;background:#E0A82E;box-shadow:0 0 0 3px rgba(224,168,46,.2);
+    animation:pip 2.4s ease-in-out infinite;}
+  @keyframes pip{0%,100%{box-shadow:0 0 0 3px rgba(224,168,46,.2)}50%{box-shadow:0 0 0 6px rgba(224,168,46,.08)}}
+  .htitle{font-family:var(--serif);font-size:clamp(64px,13vw,184px);line-height:.82;letter-spacing:-.015em;margin:26px 0 0;}
+  .htitle .grad{font-style:italic;background:var(--irid);background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shift 7s ease infinite;}
+  @keyframes shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .lead{margin:30px 0 0;max-width:38ch;font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--ink2);}
+  .status{margin:18px 0 0;max-width:44ch;font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--soft);}
+  .actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:11px;border-radius:12px;padding:14px 22px;font-weight:600;font-size:14.5px;
+    cursor:pointer;border:1px solid transparent;transition:transform .14s,box-shadow .2s,background .2s;}
+  .btn .ar{opacity:.75;transition:transform .2s}
+  .btn:hover .ar{transform:translateX(3px)}
+  .btn.grad{background:var(--irid);background-size:200% auto;color:#041018;box-shadow:0 14px 36px -14px rgba(59,160,240,.7);animation:shift 5s ease infinite;}
+  .btn.grad:hover{transform:translateY(-2px);}
+  .btn.ghost{background:rgba(255,255,255,.04);border-color:var(--line2);color:var(--ink);}
+  .btn.ghost:hover{background:rgba(255,255,255,.09);}
+
+  .cue{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:3;font-family:var(--mono);
+    font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .cue .bar{width:1px;height:32px;background:linear-gradient(var(--line2),transparent);animation:cuep 2.2s ease-in-out infinite;}
+  @keyframes cuep{0%,100%{transform:scaleY(.5);opacity:.4;transform-origin:top}50%{transform:scaleY(1);opacity:1;transform-origin:top}}
+
+  /* ---- sections ---- */
+  .module{position:relative;padding:clamp(80px,14vh,160px) clamp(18px,4vw,52px);}
+  .wrap{max-width:1100px;margin:0 auto;}
+  .module h2{font-family:var(--serif);font-size:clamp(38px,6vw,76px);line-height:.98;letter-spacing:-.01em;margin:14px 0 0;}
+  .module h2 .grad{font-style:italic;background:var(--irid);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .stmt p{margin:26px 0 0;max-width:54ch;font-size:clamp(16px,1.6vw,20px);line-height:1.6;color:var(--ink2);}
+
+  .doors{margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .door{position:relative;display:block;padding:34px 32px 30px;border-radius:18px;border:1px solid var(--line2);
+    background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.02));overflow:hidden;
+    transition:transform .25s,border-color .25s,box-shadow .25s;}
+  .door:hover{transform:translateY(-4px);border-color:rgba(59,160,240,.5);box-shadow:0 26px 64px -32px rgba(59,160,240,.55);}
+  .door::before{content:"";position:absolute;inset:0;background:var(--irid);opacity:0;transition:opacity .25s;}
+  .door:hover::before{opacity:.06;}
+  .door>*{position:relative;}
+  .door .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);}
+  .door h3{font-family:var(--serif);font-size:clamp(28px,3.4vw,42px);margin:10px 0 10px;}
+  .door p{font-size:15px;line-height:1.6;color:var(--ink2);margin:0 0 18px;max-width:42ch;}
+  .door .go{font-family:var(--mono);font-size:12px;color:var(--ink);border:1px solid var(--line2);border-radius:999px;padding:7px 14px;display:inline-flex;gap:8px;}
+  .door .soon-tag{position:absolute;top:24px;right:26px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+    text-transform:uppercase;color:#04101a;background:var(--teal);border-radius:5px;padding:3px 7px;}
+
+  .ft{border-top:1px solid var(--line);padding:clamp(56px,9vh,100px) clamp(18px,4vw,52px) 46px;}
+  .ft .roller{font-family:var(--serif);font-size:clamp(46px,11vw,128px);line-height:.9;letter-spacing:-.01em;}
+  .ft .roller .b{font-style:italic;background:var(--irid);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .ft .frow{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;font-family:var(--mono);font-size:11.5px;color:var(--soft);}
+  .ft .frow .sp{flex:1;}
+  .ft .frow a{color:var(--ink2);border-bottom:1px solid var(--line2);padding-bottom:1px;}
+  .ft .frow a:hover{color:var(--teal);border-color:var(--teal);}
+
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ---- the path: a feather-spine journey that draws on scroll ---- */
+  .path-sub{margin:24px 0 0;max-width:52ch;font-size:16px;line-height:1.6;color:var(--ink2);}
+  .spine-wrap{--spine-x:30px;--pad:84px;position:relative;margin-top:clamp(54px,9vh,100px);padding-left:var(--pad);}
+  .spine{position:absolute;left:var(--spine-x);top:10px;bottom:10px;width:2px;background:var(--line2);border-radius:2px;overflow:hidden;}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--irid);box-shadow:0 0 18px rgba(59,160,240,.65);}
+  .stages{display:flex;flex-direction:column;gap:clamp(56px,11vh,120px);}
+  .stage{position:relative;max-width:60ch;}
+  .node{position:absolute;top:7px;left:calc(var(--spine-x) - var(--pad) - 11px);width:22px;height:22px;border-radius:50%;z-index:2;
+    background:radial-gradient(circle at 50% 42%, #fff 0 9%, #2BD4C4 16% 40%, #3BA0F0 52% 70%, #8E7BF0 82%);
+    box-shadow:0 0 0 5px rgba(59,160,240,.08), 0 0 14px rgba(59,160,240,.35);transition:box-shadow .4s,transform .4s;}
+  .stage.in .node{box-shadow:0 0 0 7px rgba(59,160,240,.14), 0 0 28px rgba(59,160,240,.6);transform:scale(1.1);}
+  .stage .k{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);}
+  .stage h3{font-family:var(--serif);font-size:clamp(30px,4.6vw,56px);line-height:1.0;letter-spacing:-.01em;margin:10px 0 12px;}
+  .stage p{font-size:clamp(15px,1.5vw,18px);line-height:1.6;color:var(--ink2);margin:0;}
+  .path-coda{margin-top:clamp(54px,9vh,100px);padding-left:var(--pad,84px);font-family:var(--mono);font-size:12.5px;line-height:1.8;color:var(--soft);max-width:62ch;}
+  .path-coda b{color:var(--ink2);font-weight:400;}
+
+  @media (max-width:760px){
+    .hero-peacock{opacity:.28;right:-30vw;}
+    .hdr nav a:not(.cta){display:none;}
+    .doors{grid-template-columns:1fr;}
+    .spine-wrap{--pad:56px;--spine-x:18px;}
+    .path-coda{padding-left:56px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
 </head>
 <body>
-
-<!-- iridescent gradient referenced by peacock fills + visualizer bars -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <linearGradient id="irid" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#23B7AE"/><stop offset="50%" stop-color="#2E86C8"/><stop offset="100%" stop-color="#6C63D8"/>
+    <stop offset="0%" stop-color="#2BD4C4"/><stop offset="48%" stop-color="#3BA0F0"/><stop offset="100%" stop-color="#8E7BF0"/>
   </linearGradient>
 </defs></svg>
 
-<!-- intro reveal — "Yours / Only" split-mask -->
-<div class="intro" id="intro" aria-hidden="true">
-  <div class="igroup">
-    <div class="imask imask--top"><span class="iword">Yours</span></div>
-    <div class="idiv"></div>
-    <div class="imask imask--bottom"><span class="iword">Only</span></div>
-  </div>
-</div>
-
 <div class="ambient" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <div class="page">
-
-  <!-- header -->
   <header class="hdr">
     <div class="mk" data-mark="head" aria-hidden="true"></div>
-    <a class="word" href="#surface">Peacock<span class="os">// OS</span></a>
+    <a class="word" href="#">Peacock<span class="os">// OS</span></a>
     <nav>
-      <a href="#stack">The Stack</a>
-      <a href="#signals">Signals</a>
-      <a href="/devices/">Supported Devices</a>
-      <a class="btn ghost" href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">GitHub <span class="ar">&#8594;</span></a>
+      <a href="#">The Project</a>
+      <a class="soon" href="#">Wiki</a>
+      <a class="soon" href="#">Community</a>
+      <a class="cta" href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
 
-  <main>
-
-    <!-- hero -->
-    <section class="module hero" id="surface">
-      <div class="pkhero" data-mark="full" aria-hidden="true"></div>
-      <div class="wrap hero-content reveal in">
-        <span class="eyebrow">Unshackle Your Device</span>
-        <h1 class="hero-title">Welcome to<span class="grad">Peacock OS.</span></h1>
-        <p class="hero-lead">We're opening the path to put you back in the driver's seat. Because great hardware deserves an OS that actually listens to you.</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#stack">Explore The Stack <span class="ar">&#8594;</span></a>
-          <a class="btn ghost" href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">Join The Project</a>
-        </div>
+  <section class="hero">
+    <div class="hero-peacock shimmer" data-mark="full" aria-hidden="true"></div>
+    <div class="hero-wrap">
+      <span class="eyebrow"><span class="pip"></span>Open mobile meta-distro · early days</span>
+      <h1 class="htitle">Your device,<br><span class="grad">unshackled.</span></h1>
+      <p class="lead">Peacock turns a locked-down phone into a computer that finally answers to you. Build it, own it, swap it, rescue it.</p>
+      <p class="status">It's early — experimental, a handful of devices, no stable download yet. This is the vision, and an open door to help build it.</p>
+      <div class="actions">
+        <a class="btn grad" href="#">Explore the project <span class="ar">&#8594;</span></a>
+        <a class="btn ghost" href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">Lend a hand</a>
       </div>
-      <div class="scroll-cue"><span>Scroll</span><span class="bar"></span></div>
-    </section>
+    </div>
+    <div class="cue"><span>Scroll</span><span class="bar"></span></div>
+  </section>
 
-    <!-- architecture -->
-    <section class="module stack-module" id="stack">
-      <div class="wrap">
-        <div class="module-header reveal">
-          <span class="eyebrow">The Stack</span>
-          <h2>The Architecture</h2>
-          <p class="section-desc">Four specialized tools. One unified experience.</p>
-        </div>
+  <section class="module">
+    <div class="wrap stmt reveal">
+      <span class="eyebrow">Own your device</span>
+      <h2>Not a toolkit. <span class="grad">Your phone, given back.</span></h2>
+      <p>From building it, to slipping past the lock, to the day a system crashes and quietly recovers itself — every part exists for one reason: the device you paid for should answer to you, not its manufacturer.</p>
+    </div>
+  </section>
 
-        <div class="arch-flow">
-
-          <!-- Level 01 — Builder -->
-          <article class="arch-segment reveal">
-            <div class="segment-visual">
-              <svg class="anim-svg" viewBox="0 0 100 100">
-                <rect class="svg-builder-core" x="35" y="35" width="30" height="30" rx="2" fill="none" stroke-width="2.5"/>
-                <rect class="svg-builder-core-inner" x="42" y="42" width="16" height="16" rx="1" opacity="0.2"/>
-                <line class="svg-packet p-top" x1="50" y1="5" x2="50" y2="15" stroke="var(--teal)" stroke-width="1.5"/>
-                <line class="svg-packet p-left" x1="5" y1="50" x2="15" y2="50" stroke="var(--teal)" stroke-width="1.5"/>
-                <line class="svg-packet p-right" x1="95" y1="50" x2="85" y2="50" stroke="var(--teal)" stroke-width="1.5"/>
-                <rect class="svg-build-output" x="40" y="40" width="20" height="20" rx="2" fill="none" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="segment-content">
-              <div class="tool-index">Level 01</div>
-              <h3 class="tool-title">Peacock Builder</h3>
-              <p class="tool-desc">The core toolkit. It orchestrates the entire system architecture, allowing you to seamlessly compile and output flashable PeacockOS builds from source.</p>
-            </div>
-          </article>
-
-          <!-- Level 02 — split: MinKernel | bridge | lk2nd -->
-          <div class="arch-split reveal">
-            <article class="arch-segment">
-              <div class="segment-visual">
-                <svg class="anim-svg" viewBox="0 0 512 512">
-                  <path class="draw-path magenta-path" d="M416 48v416c0 26.51-21.49 48-48 48H144c-26.51 0-48-21.49-48-48V48c0-26.51 21.49-48 48-48h224c26.51 0 48 21.49 48 48zm96 58v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42V88h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zm0 96v12a6 6 0 0 1-6 6h-18v6a6 6 0 0 1-6 6h-42v-48h42a6 6 0 0 1 6 6v6h18a6 6 0 0 1 6 6zM30 376h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6zm0-96h42v48H30a6 6 0 0 1-6-6v-6H6a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6h18v-6a6 6 0 0 1 6-6z"/>
-                </svg>
-              </div>
-              <div class="segment-content">
-                <div class="tool-index">Level 02 &middot; MTK</div>
-                <h3 class="tool-title">MinKernel</h3>
-                <p class="tool-desc">A scratch-built, incredibly lightweight chainloader explicitly tuned for MediaTek hardware, bridging the gap entirely where traditional bootloaders fall short. Inspired by the amazing work of lk2nd.</p>
-              </div>
-            </article>
-
-            <div class="split-center">
-              <div class="center-node"></div>
-              <span class="center-label">Boot Bridge</span>
-            </div>
-
-            <article class="arch-segment">
-              <div class="segment-visual">
-                <svg class="anim-svg" viewBox="0 0 384 512">
-                  <path class="draw-path cyan-path" d="M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z"/>
-                </svg>
-              </div>
-              <div class="segment-content">
-                <div class="tool-index">Level 02 &middot; QCOM</div>
-                <h3 class="tool-title">lk2nd Fork</h3>
-                <p class="tool-desc">A highly customized boot bridge. It intercepts the standard boot sequence, injecting the exact modifications needed to successfully launch PeacockOS on your hardware &mdash; with the visual flare, of course.</p>
-              </div>
-            </article>
-          </div>
-
-          <!-- Level 03 — PeacockOS -->
-          <article class="arch-segment reveal">
-            <div class="segment-visual">
-              <svg class="anim-svg" viewBox="0 0 512 512" style="overflow:visible">
-                <circle class="svg-ripple-new" cx="256" cy="256" r="256" fill="none" vector-effect="non-scaling-stroke"/>
-                <circle class="svg-ripple-new delay-2" cx="256" cy="256" r="256" fill="none" vector-effect="non-scaling-stroke"/>
-                <g transform="translate(128, 128) scale(0.5)">
-                  <path class="svg-os-core" d="M512 0C460.22 3.56 96.44 38.2 71.01 287.61c-3.09 26.66-4.84 53.44-5.99 80.24l178.87-178.69c6.25-6.25 16.4-6.25 22.65 0s6.25 16.38 0 22.63L7.04 471.03c-9.38 9.37-9.38 24.57 0 33.94 9.38 9.37 24.59 9.37 33.98 0l57.13-57.07c42.09-.14 84.15-2.53 125.96-7.36 53.48-5.44 97.02-26.47 132.58-56.54H255.74l146.79-48.88c11.25-14.89 21.37-30.71 30.45-47.12h-81.14l106.54-53.21C500.29 132.86 510.19 26.26 512 0z"/>
-                </g>
-              </svg>
-            </div>
-            <div class="segment-content">
-              <div class="tool-index">Level 03</div>
-              <h3 class="tool-title">PeacockOS</h3>
-              <p class="tool-desc">The operating system itself. A completely decentralized, unleashed environment designed from the ground up to give you absolute control over your device's capabilities. Elegant, fast, and engineered for those who demand more than factory limits.</p>
-            </div>
-          </article>
-
-          <div class="flow-connector reveal"><div class="flow-line"></div></div>
-
-          <!-- Level 04 — PRP -->
-          <article class="arch-segment reveal">
-            <div class="segment-visual">
-              <svg class="anim-svg prp-rescue-svg" viewBox="0 0 1000 1000" style="overflow:visible">
-                <g class="hand-bottom"><g transform="translate(150, 250) scale(0.85)">
-                  <path d="M408.781 128.007C386.356 127.578 368 146.36 368 168.79V256h-8V79.79c0-22.43-18.356-41.212-40.781-40.783C297.488 39.423 280 57.169 280 79v177h-8V40.79C272 18.36 253.644-.422 231.219.007 209.488.423 192 18.169 192 40v216h-8V80.79c0-22.43-18.356-41.212-40.781-40.783C121.488 40.423 104 58.169 104 80v235.992l-31.648-43.519c-12.993-17.866-38.009-21.817-55.877-8.823-17.865 12.994-21.815 38.01-8.822 55.877l125.601 172.705A48 48 0 0 0 172.073 512h197.59c22.274 0 41.622-15.324 46.724-37.006l26.508-112.66a192.011 192.011 0 0 0 5.104-43.975V168c.001-21.831-17.487-39.577-39.218-39.993z"/>
-                </g></g>
-                <g class="hand-top"><g transform="translate(250, 150) scale(0.85) rotate(180 224 256)">
-                  <path d="M408.781 128.007C386.356 127.578 368 146.36 368 168.79V256h-8V79.79c0-22.43-18.356-41.212-40.781-40.783C297.488 39.423 280 57.169 280 79v177h-8V40.79C272 18.36 253.644-.422 231.219.007 209.488.423 192 18.169 192 40v216h-8V80.79c0-22.43-18.356-41.212-40.781-40.783C121.488 40.423 104 58.169 104 80v235.992l-31.648-43.519c-12.993-17.866-38.009-21.817-55.877-8.823-17.865 12.994-21.815 38.01-8.822 55.877l125.601 172.705A48 48 0 0 0 172.073 512h197.59c22.274 0 41.622-15.324 46.724-37.006l26.508-112.66a192.011 192.011 0 0 0 5.104-43.975V168c.001-21.831-17.487-39.577-39.218-39.993z"/>
-                </g></g>
-              </svg>
-            </div>
-            <div class="segment-content">
-              <div class="tool-index">Level 04</div>
-              <h3 class="tool-title">Peacock Recovery (PRP)</h3>
-              <p class="tool-desc">Engineered from the ground up as a native alternative to TWRP, designed exclusively to manage, rescue, and repair your PeacockOS environment.</p>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- signals -->
-    <section class="module signals-module" id="signals">
-      <div class="wrap">
-        <div class="signal-container reveal">
-          <div class="signal-copy">
-            <span class="eyebrow">Signals</span>
-            <h2 class="signal-title">The signal is already out there.</h2>
-            <p>Our host builders, device recoveries, and lower boot paths are producing real, tangible output right now. Ready to experience bleeding edge?</p>
-            <a class="btn grad" href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">Tap In <span class="ar">&#8594;</span></a>
-          </div>
-          <div class="visualizer" id="visualizer" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- footer -->
-  <footer class="footer">
+  <section class="module path-module">
     <div class="wrap">
-      <div class="roller" id="brandRoller" data-state="project" data-direction="init" aria-label="PeacockProject — Yours Only">
-        <span class="brand-item brand-item--project">PeacockProject</span>
-        <span class="brand-item brand-item--alt">Yours Only</span>
+      <div class="path-head reveal">
+        <span class="eyebrow">The path</span>
+        <h2>From a locked slab to <span class="grad">truly yours.</span></h2>
+        <p class="path-sub">Four steps, one continuous thread — not four separate products. This is how a phone becomes yours, end to end.</p>
       </div>
+      <div class="spine-wrap">
+        <div class="spine"><div class="spine-fill" id="spineFill"></div></div>
+        <div class="stages">
+          <article class="stage reveal"><span class="node"></span><span class="k">01 · Build</span><h3>Make the OS your phone should've shipped with.</h3><p>Pick your device, choose how you want it — point-and-click or every flag on the command line — and out comes a complete system cut to fit that exact phone.</p></article>
+          <article class="stage reveal"><span class="node"></span><span class="k">02 · Unlock</span><h3>Slip past the factory lock.</h3><p>Every phone guards what's allowed to boot. Two keys get you in — one for MediaTek, one for Qualcomm — exactly where the stock loader refuses.</p></article>
+          <article class="stage reveal"><span class="node"></span><span class="k">03 · Live</span><h3>A real computer in your pocket — that stays yours.</h3><p>Run actual Linux. Swap the whole system for a different flavor tomorrow and your apps, files and settings don't move — they sit on a foundation the OS just rides on top of.</p></article>
+          <article class="stage reveal"><span class="node"></span><span class="k">04 · Recover</span><h3>If it ever breaks, it catches itself.</h3><p>A recovery layer boots on its own the moment something won't start — rescue, repair, reinstall, right from the phone in your hand. You're never left with a brick.</p></article>
+        </div>
+      </div>
+      <p class="path-coda"><b>And it's not only phones.</b> The same system boots on a laptop or desktop too. Open source, no accounts, nothing phoning home — yours, all the way down.</p>
+    </div>
+  </section>
+
+  <section class="module">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Where it's heading</span>
+        <h2>Two front doors, <span class="grad">opening soon.</span></h2>
+      </div>
+      <div class="doors reveal">
+        <a class="door" href="#">
+          <span class="soon-tag">soon</span>
+          <span class="k">Knowledgebase</span>
+          <h3>The Wiki</h3>
+          <p>Guides, device notes, and how-tos — written and kept current by the people actually running it. A living manual, editable by the community.</p>
+          <span class="go">Browse the wiki <span class="ar">&#8594;</span></span>
+        </a>
+        <a class="door" href="#">
+          <span class="soon-tag">soon</span>
+          <span class="k">Forum</span>
+          <h3>The Community</h3>
+          <p>Where it gets built in the open — questions, device threads, builds, and the back-and-forth that moves a young project forward. Pull up a chair.</p>
+          <span class="go">Join the conversation <span class="ar">&#8594;</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ft">
+    <div class="wrap">
+      <div class="roller">Peacock<span class="b">Project</span></div>
       <div class="frow">
-        <span class="pd"></span>
         <span>To be public soon</span>
         <span class="sp"></span>
         <a href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">GitHub</a>
-        <a href="/devices/">Supported Devices</a>
-        <a href="#surface">Top &#8593;</a>
+        <a href="#">Wiki</a>
+        <a href="#">Community</a>
+        <a href="#top">Top &#8593;</a>
       </div>
     </div>
   </footer>
-
 </div>
 
-<script src="/assets/site.js"></script>
+<script>
+(function(){
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // inline the peacock marks so they take url(#irid)
+  var MARK={head:"/assets/peacock-head.svg",full:"/assets/peacock-full.svg"};
+  document.querySelectorAll("[data-mark]").forEach(function(el){
+    fetch(MARK[el.dataset.mark]).then(function(r){return r.text();}).then(function(t){
+      el.innerHTML=t.replace(/fill:#[0-9a-fA-F]{3,8}/g,"fill:currentColor");
+    }).catch(function(){});
+  });
+  // scroll reveals
+  var els=[].slice.call(document.querySelectorAll(".reveal"));
+  if(reduce){ els.forEach(function(e){e.classList.add("in");}); }
+  else if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)x.target.classList.add("in");});},{threshold:.15});
+    els.forEach(function(e){io.observe(e);});
+  }
+
+  // the spine "draws" as you scroll through the path
+  var fill=document.getElementById("spineFill"), sw=document.querySelector(".spine-wrap"), tick=false;
+  function spine(){ tick=false; if(!fill||!sw)return;
+    var r=sw.getBoundingClientRect();
+    var p=(innerHeight*0.5 - r.top)/r.height;
+    fill.style.height=(Math.max(0,Math.min(1,p))*100)+"%";
+  }
+  if(fill&&sw){
+    if(reduce){ fill.style.height="100%"; }
+    else{
+      var onsc=function(){ if(!tick){tick=true;requestAnimationFrame(spine);} };
+      addEventListener("scroll",onsc,{passive:true}); addEventListener("resize",onsc); spine();
+    }
+  }
+})();
+</script>
 </body>
 </html>

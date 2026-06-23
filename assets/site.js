@@ -90,9 +90,11 @@
       if (window.scrollY > 12) {
         hdr.style.background = "rgba(243,243,241,.9)";
         hdr.style.borderColor = "rgba(32,31,36,.16)";
+        hdr.style.boxShadow = "0 8px 32px -12px rgba(32,31,36,.1)";
       } else {
         hdr.style.background = "";
         hdr.style.borderColor = "";
+        hdr.style.boxShadow = "";
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -181,6 +183,57 @@
     })();
   }
 
+  /* ---- Builder showcase: GUI / CLI toggle; CLI types the equivalent command ---- */
+  function runBuilder() {
+    var modes = [].slice.call(document.querySelectorAll(".bld-mode"));
+    var gui = document.querySelector(".bld-gui");
+    var cli = document.querySelector(".bld-cli");
+    var cmdEl = document.querySelector(".bcli-cmd");
+    if (!modes.length || !cmdEl) return;
+    var CMD = "peacock build --device xiaomi-daisy --flavor arch --desktop gnome";
+    var timer = null;
+    function type() {
+      clearTimeout(timer); cmdEl.textContent = ""; var i = 0;
+      (function step() {
+        cmdEl.textContent = CMD.slice(0, i++);
+        if (i <= CMD.length) timer = setTimeout(step, reduce ? 0 : 26);
+      })();
+    }
+    modes.forEach(function (b) {
+      b.addEventListener("click", function () {
+        modes.forEach(function (m) { m.classList.toggle("on", m === b); });
+        var cliMode = b.dataset.mode === "cli";
+        if (gui) gui.classList.toggle("on", !cliMode);
+        if (cli) cli.classList.toggle("on", cliMode);
+        if (cliMode) type();
+      });
+    });
+  }
+
+  /* ---- PeacockOS swap: change the OS layer; the apps/data shelf stays put ---- */
+  function runSwap() {
+    var screen = document.querySelector(".swap-screen");
+    var name = document.querySelector(".swap-os-name");
+    var sub = document.querySelector(".swap-os-sub");
+    var chips = [].slice.call(document.querySelectorAll(".flavor"));
+    if (!screen || !chips.length) return;
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        if (c.classList.contains("on")) return;
+        chips.forEach(function (x) { x.classList.toggle("on", x === c); });
+        screen.style.setProperty("--fc", c.style.getPropertyValue("--fc") || "#1793d1");
+        if (name) name.textContent = c.textContent;
+        if (sub) sub.textContent = c.dataset.sub || "";
+        if (!reduce && screen.animate) {
+          screen.animate(
+            [{ opacity: .35, transform: "translateY(8px) scale(.985)" }, { opacity: 1, transform: "none" }],
+            { duration: 440, easing: "cubic-bezier(.2,.7,.2,1)" }
+          );
+        }
+      });
+    });
+  }
+
   function init() {
     inlineMarks();
     runIntro();
@@ -188,6 +241,8 @@
     runHeader();
     runVisualizer();
     runFooterRoller();
+    runBuilder();
+    runSwap();
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
