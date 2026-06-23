@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Peacock // OS: your device, unshackled</title>
+<title>The Project · Peacock // OS</title>
 <meta name="description" content="Peacock is an open mobile meta-distro. Turn a locked-down phone into a computer that answers to you, build the system yourself, and swap it out whenever you want. Early days, open to help." />
 <link rel="icon" href="/logo-mark-dark.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -172,7 +172,7 @@
 <div class="page">
   <header class="hdr">
     <div class="mk" data-mark="head" aria-hidden="true"></div>
-    <a class="word" href="#">Peacock<span class="os">// OS</span></a>
+    <a class="word" href="/">Peacock<span class="os">// OS</span></a>
     <nav>
       <a href="/project">The Project</a>
       <a href="https://wiki.peacockos.org">Wiki</a>
@@ -180,72 +180,69 @@
       <a class="cta" href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
-
-  <section class="hero">
-    <div class="hero-peacock shimmer" data-mark="full" aria-hidden="true"></div>
-    <div class="hero-wrap">
-      <span class="eyebrow"><span class="pip"></span>Open mobile meta-distro · early days</span>
-      <h1 class="htitle">Your device,<br><span class="grad">unshackled.</span></h1>
-      <p class="lead">Peacock turns a locked-down phone into a computer that answers to you, not the company that sold it. You build the system yourself, and it stays yours.</p>
-      <p class="status">It's early days. Experimental, only a handful of devices, and nothing stable to download yet. This is where it's headed, and we could use the help.</p>
-      <div class="actions">
-        <a class="btn grad" href="https://wiki.peacockos.org">Explore the project <span class="ar">&#8594;</span></a>
-        <a class="btn ghost" href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener">Lend a hand</a>
-      </div>
-    </div>
-    <div class="cue"><span>Scroll</span><span class="bar"></span></div>
-  </section>
-
-  <section class="module">
-    <div class="wrap stmt reveal">
-      <span class="eyebrow">Own your device</span>
-      <h2>Your phone, <span class="grad">handed back.</span></h2>
-      <p>Building the system, getting past the lock, recovering on its own when something breaks. The phone you paid for should listen to you, not the company that made it. That's the whole point.</p>
-    </div>
-  </section>
-
-  <section class="module path-module">
-    <div class="wrap">
-      <div class="path-head reveal">
-        <span class="eyebrow">The path</span>
-        <h2>From factory-locked to <span class="grad">truly yours.</span></h2>
-        <p class="path-sub">Four steps, and they run into each other. Not four separate products, just one path from a stock phone to one that's actually yours.</p>
-      </div>
-      <div class="spine-wrap">
-        <div class="spine"><div class="spine-fill" id="spineFill"></div></div>
-        <div class="stages">
-          <article class="stage reveal"><span class="node"></span><span class="k">01 · Build</span><h3>Make the OS your phone should've shipped with.</h3><p>Pick your device and choose how hands-on you want to be, from point-and-click to setting every flag yourself. What comes out is a complete system built for that one phone.</p></article>
-          <article class="stage reveal"><span class="node"></span><span class="k">02 · Unlock</span><h3>Slip past the factory lock.</h3><p>Every phone controls what's allowed to boot. There are two ways in, one for MediaTek and one for Qualcomm, right where the stock bootloader says no.</p></article>
-          <article class="stage reveal"><span class="node"></span><span class="k">03 · Live</span><h3>A real computer in your pocket, and it stays yours.</h3><p>Run actual Linux. Want a different distro tomorrow? Swap the whole thing out and your apps, files and settings stay put. They sit on a base layer the OS just rides on top of.</p></article>
-          <article class="stage reveal"><span class="node"></span><span class="k">04 · Recover</span><h3>If it ever breaks, it catches itself.</h3><p>If something won't boot, a recovery layer comes up on its own so you can rescue, repair or reinstall right from the phone. You don't end up holding a brick.</p></article>
-        </div>
-      </div>
-      <p class="path-coda"><b>And it's not only phones.</b> The same system runs on a laptop or desktop too. Open source, no accounts, nothing phoning home.</p>
-    </div>
-  </section>
-
-  <section class="module">
+  <section class="module" style="padding-top:clamp(110px,16vh,170px);">
     <div class="wrap">
       <div class="reveal">
-        <span class="eyebrow">Where it's heading</span>
-        <h2>Two front doors, <span class="grad">now open.</span></h2>
+        <span class="eyebrow"><span class="pip"></span>The Project</span>
+        <h2>What we're <span class="grad">building.</span></h2>
       </div>
-      <div class="doors reveal">
-        <a class="door" href="https://wiki.peacockos.org">
-          <span class="k">Knowledgebase</span>
-          <h3>The Wiki</h3>
-          <p>Guides, device notes and how-tos, written and kept current by the people actually running this. Anyone can edit it.</p>
-          <span class="go">Browse the wiki <span class="ar">&#8594;</span></span>
+      <div class="stmt reveal">
+        <p>Peacock isn't one program. It's a set of pieces that fit together to take a phone from factory-locked to fully yours. Here's what each one does, and where to find it.</p>
+      </div>
+      <div class="doors reveal" style="margin-top:48px;">
+        <a class="door" href="https://github.com/PeacockProject/Peacock" target="_blank" rel="noopener">
+          <span class="k">Core · C</span>
+          <h3>Peacock</h3>
+          <p>The core. It builds a complete, device-specific OS image and is the base system that runs on the phone, with a Linux distro of your choice layered on top. Includes the builder, command line and GUI, that turns a device pick into something you can flash.</p>
+          <span class="go">View on GitHub <span class="ar">&#8594;</span></span>
         </a>
-        <a class="door" href="https://forum.peacockos.org">
-          <span class="k">Forum</span>
-          <h3>The Community</h3>
-          <p>Where the work happens in the open. Questions, device threads, build logs, and the back-and-forth a young project runs on. Come say hi.</p>
-          <span class="go">Join the conversation <span class="ar">&#8594;</span></span>
+        <a class="door" href="https://github.com/PeacockProject/feather" target="_blank" rel="noopener">
+          <span class="k">Packages · C</span>
+          <h3>feather (ftr)</h3>
+          <p>Peacock's package manager. Installs and updates the platform, your apps and compatibility layers from signed binaries, and keeps them separate from the OS underneath so swapping the distro doesn't touch your stuff.</p>
+          <span class="go">View on GitHub <span class="ar">&#8594;</span></span>
+        </a>
+        <a class="door" href="https://github.com/PeacockProject/peacock-ports" target="_blank" rel="noopener">
+          <span class="k">Recipes · C</span>
+          <h3>peacock-ports</h3>
+          <p>The recipe tree. Every package and device kernel is defined here as a build script, so the builder knows how to compile and assemble everything that ends up in an image.</p>
+          <span class="go">View on GitHub <span class="ar">&#8594;</span></span>
+        </a>
+        <a class="door" href="https://github.com/PeacockProject/peacock-mkinitfs" target="_blank" rel="noopener">
+          <span class="k">Early boot · Shell</span>
+          <h3>peacock-mkinitfs</h3>
+          <p>Builds the initramfs, the small environment that comes up first at boot, mounts the system and hands off to it. Produces the archive and boot scripts that the Peacock CLI flashes.</p>
+          <span class="go">View on GitHub <span class="ar">&#8594;</span></span>
+        </a>
+        <a class="door" href="https://github.com/PeacockProject/MinKernel" target="_blank" rel="noopener">
+          <span class="k">Chainloader · MediaTek</span>
+          <h3>MinKernel</h3>
+          <p>A tiny chainloader for MediaTek phones, heavily inspired by lk2nd. It runs right after the bootloader and hands control to Peacock or the recovery system.</p>
+          <span class="go">View on GitHub <span class="ar">&#8594;</span></span>
+        </a>
+        <a class="door" href="https://github.com/PeacockProject/lk2nd_peacock" target="_blank" rel="noopener">
+          <span class="k">Bootloader · Qualcomm</span>
+          <h3>lk2nd_peacock</h3>
+          <p>Our fork of lk2nd, the established secondary bootloader for Qualcomm phones. It loads Peacock or recovery through extlinux.</p>
+          <span class="go">View on GitHub <span class="ar">&#8594;</span></span>
+        </a>
+        <a class="door" href="https://github.com/PeacockProject/PRP" target="_blank" rel="noopener">
+          <span class="k">Recovery · Shell</span>
+          <h3>PRP</h3>
+          <p>The Peacock Recovery Project. A self-contained rescue system that boots on its own when the main OS won't start, so you can repair, reinstall or roll back right from the device.</p>
+          <span class="go">View on GitHub <span class="ar">&#8594;</span></span>
+        </a>
+        <a class="door" href="https://github.com/orgs/PeacockProject/repositories" target="_blank" rel="noopener">
+          <span class="k">Kernels · per device</span>
+          <h3>Device support</h3>
+          <p>Every supported phone gets its own kernel, forked and patched so Peacock can boot on it. The lead device today is the Oppo A16, and more land as the project grows.</p>
+          <span class="go">Browse the repos <span class="ar">&#8594;</span></span>
         </a>
       </div>
+      <p class="path-coda" style="margin-top:42px;"><b>That's the public set.</b> It all lives in the open. Browse the full org on <a href="https://github.com/orgs/PeacockProject/" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line2)">GitHub</a>.</p>
     </div>
   </section>
+
 
   <footer class="ft">
     <div class="wrap">
