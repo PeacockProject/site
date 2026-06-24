@@ -1,0 +1,64 @@
+name: Device pages
+
+# Regenerates /devices (site) + the wiki device pages from peacock-ports status.toml,
+# converting each device package's image.* to webp. See peacock-ports/device/STATUS.md.
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [devices-update]        # fired by peacock-ports on status.toml / image change
+  schedule:
+    - cron: '17 6 * * *'           # daily safety net
+  push:
+    branches: [master]
+    paths:
+      - 'scripts/gen-devices.py'
+      - '.github/workflows/devices.yml'
+
+permissions:
+  contents: write                  # commit the regenerated site files
+
+concurrency:
+  group: device-pages
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      - name: Checkout peacock-ports
+        uses: actions/checkout@v4
+        with:
+          repository: PeacockProject/peacock-ports
+          path: .peacock-ports
+
+      - name: Install webp tooling
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends webp imagemagick
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate device pages + push wiki
+        env:
+          PEACOCK_PORTS: ${{ github.workspace }}/.peacock-ports
+          PEACOCK_SITE: ${{ github.workspace }}
+          WIKI_URL: https://wiki.peacockos.org
+          WIKI_API_TOKEN: ${{ secrets.WIKI_API_TOKEN }}
+        run: python3 scripts/gen-devices.py
+
+      - name: Commit regenerated site files
+        run: |
+          git config user.name 'peacock-bot'
+          git config user.email 'bot@peacockos.org'
+          git add devices/
+          if git diff --cached --quiet; then
+            echo 'No device changes to commit.'
+          else
+            git commit -m 'ci: regenerate device pages from status.toml'
+            git push
+          fi
